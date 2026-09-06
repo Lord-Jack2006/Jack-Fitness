@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jack Fitness 💪</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#080808;
+    color:white;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:400px;
+    height:400px;
+    background:#ff1e1e;
+    filter:blur(180px);
+    opacity:.12;
+    top:-150px;
+    left:-150px;
+    z-index:-1;
+}
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 7%;
+    background:rgba(8,8,8,.8);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    color:#ff3333;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#ff3333;
+}
+
+.hero{
+    min-height:85vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:50px 20px;
+    background:
+    radial-gradient(circle at center,rgba(255,40,40,.16),transparent 45%);
+}
+
+.hero-content{
+    animation:fadeUp 1s ease;
+}
+
+.hero h1{
+    font-size:clamp(50px,9vw,100px);
+    line-height:1;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#ff3030;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:20px;
+    margin-bottom:35px;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 30px;
+    border-radius:30px;
+    background:#ff3030;
+    color:white;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+    box-shadow:0 0 25px rgba(255,40,40,.25);
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 30px rgba(255,40,40,.4);
+}
+
+section{
+    padding:80px 7%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:40px;
+    margin-bottom:45px;
+}
+
+.section-title span{
+    color:#ff3030;
+}
+
+.workout-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    cursor:pointer;
+    transition:.35s;
+    backdrop-filter:blur(12px);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#ff3030;
+    box-shadow:0 15px 40px rgba(255,30,30,.15);
+}
+
+.card .icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#999;
+}
+
+#workoutDetails{
+    display:none;
+    max-width:1000px;
+    margin:auto;
+}
+
+.workout-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.exercise-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.exercise{
+    background:#111;
+    border:1px solid #222;
+    border-radius:18px;
+    padding:22px;
+    transition:.3s;
+}
+
+.exercise:hover{
+    transform:translateY(-5px);
+    border-color:#ff3030;
+}
+
+.exercise h3{
+    color:#ff4444;
+    margin-bottom:10px;
+}
+
+.exercise p{
+    color:#bbb;
+    margin-bottom:15px;
+}
+
+.exercise iframe{
+    width:100%;
+    height:230px;
+    border:0;
+    border-radius:12px;
+}
+
+.feature-box{
+    max-width:900px;
+    margin:30px auto;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:35px;
+    text-align:center;
+    backdrop-filter:blur(15px);
+}
+
+.feature-box h2{
+    margin-bottom:20px;
+}
+
+.feature-box h2 span{
+    color:#ff3030;
+}
+
+.feature-box input{
+    width:100%;
+    max-width:280px;
+    padding:13px;
+    margin:7px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#111;
+    color:white;
+    outline:none;
+}
+
+.feature-box input:focus{
+    border-color:#ff3030;
+}
+
+.feature-result{
+    margin-top:20px;
+    font-size:20px;
+    color:#ff5555;
+}
+
+.timer{
+    font-size:65px;
+    font-weight:bold;
+    margin:20px;
+    color:#ff3030;
+}
+
+.small-btn{
+    padding:10px 18px;
+    margin:5px;
+    border:0;
+    border-radius:20px;
+    background:#222;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.small-btn:hover{
+    background:#ff3030;
+}
+
+.level-buttons{
+    margin:20px 0;
+}
+
+.level-btn{
+    padding:12px 20px;
+    margin:5px;
+    border:1px solid #333;
+    background:#151515;
+    color:white;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.level-btn:hover{
+    background:#ff3030;
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:50px;
+    margin:25px 0;
+}
+
+.stat h3{
+    font-size:38px;
+    color:#ff3030;
+}
+
+.stat p{
+    color:#999;
+}
+
+.daily-result{
+    margin-top:25px;
+    text-align:left;
+    background:#111;
+    padding:25px;
+    border-radius:15px;
+}
+
+.daily-result h3{
+    color:#ff3030;
+    margin-bottom:15px;
+}
+
+.daily-result p{
+    padding:7px 0;
+    color:#ccc;
+}
+
+.about{
+    text-align:center;
+    max-width:800px;
+    margin:auto;
+}
+
+.about p{
+    color:#aaa;
+    line-height:1.8;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #222;
+    color:#777;
+}
+
+footer span{
+    color:#ff3030;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:800px){
+    nav{
+        padding:15px 5%;
+    }
+
+    nav ul{
+        gap:12px;
+        font-size:14px;
+    }
+
+    .workout-grid{
+        grid-template-columns:1fr;
+    }
+
+    .exercise-grid{
+        grid-template-columns:1fr;
+    }
+
+    section{
+        padding:60px 5%;
+    }
+
+    .stats{
+        gap:25px;
+    }
+
+    .timer{
+        font-size:50px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🏋️ Jack Fitness</div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#workouts">Workouts</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Train Hard.<br><span>Stay Strong.</span></h1>
+        <p>Your personal home workout companion.</p>
+        <a href="#workouts" class="btn">🔥 Start Workout</a>
+    </div>
+</section>
+
+<section id="workouts">
+
+    <h2 class="section-title">Choose Your <span>Workout</span></h2>
+
+    <div class="workout-grid">
+
+        <div class="card" onclick="showWorkout('chest')">
+            <div class="icon">💪</div>
+            <h3>Chest</h3>
+            <p>Build a stronger upper body</p>
+        </div>
+
+        <div class="card" onclick="showWorkout('legs')">
+            <div class="icon">🦵</div>
+            <h3>Legs</h3>
+            <p>Build powerful legs</p>
+        </div>
+
+        <div class="card" onclick="showWorkout('abs')">
+            <div class="icon">🔥</div>
+            <h3>Abs</h3>
+            <p>Train your core</p>
+        </div>
+
+        <div class="card" onclick="showWorkout('arms')">
+            <div class="icon">💪</div>
+            <h3>Arms</h3>
+            <p>Grow stronger arms</p>
+        </div>
+
+        <div class="card" onclick="showWorkout('shoulders')">
+            <div class="icon">🏋️</div>
+            <h3>Shoulders</h3>
+            <p>Build strong shoulders</p>
+        </div>
+
+        <div class="card" onclick="showWorkout('fullbody')">
+            <div class="icon">🔥</div>
+            <h3>Full Body</h3>
+            <p>Complete body workout</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="workoutDetails">
+
+    <div class="workout-header">
+        <h2 id="workoutTitle"></h2>
+        <br>
+        <button class="btn" onclick="closeWorkout()">← Back</button>
+    </div>
+
+    <div class="exercise-grid" id="exerciseList"></div>
+
+</section>
+
+<section id="features">
+
+<h2 class="section-title">Jack Fitness <span>Features</span></h2>
+
+<div class="feature-box">
+
+    <h2>⏱️ Workout <span>Timer</span></h2>
+
+    <div class="timer" id="timer">30</div>
+
+    <button class="small-btn" onclick="startTimer()">▶ Start</button>
+    <button class="small-btn" onclick="pauseTimer()">⏸ Pause</button>
+    <button class="small-btn" onclick="resetTimer()">🔄 Reset</button>
+
+</div>
+
+
+<div class="feature-box">
+
+    <h2>🎯 Fitness <span>Level</span></h2>
+
+    <div class="level-buttons">
+        <button class="level-btn" onclick="selectLevel('beginner')">🟢 Beginner</button>
+        <button class="level-btn" onclick="selectLevel('intermediate')">🟡 Intermediate</button>
+        <button class="level-btn" onclick="selectLevel('advanced')">🔴 Advanced</button>
+    </div>
+
+    <div class="feature-result" id="levelResult">
+        Choose your fitness level
+    </div>
+
+</div>
+
+
+<div class="feature-box">
+
+    <h2>⚖️ BMI <span>Calculator</span></h2>
+
+    <input type="number" id="height" placeholder="Height (cm)">
+    <input type="number" id="weight" placeholder="Weight (kg)">
+    <br><br>
+
+    <button class="btn" onclick="calculateBMI()">Calculate BMI</button>
+
+    <div class="feature-result" id="bmiResult"></div>
+
+</div>
+
+
+<div class="feature-box">
+
+    <h2>📈 Your <span>Progress</span></h2>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3 id="workoutCount">0</h3>
+            <p>Workouts</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="streakCount">0</h3>
+            <p>Streak</p>
+        </div>
+
+    </div>
+
+    <button class="btn" onclick="completeWorkout()">🔥 Complete Workout</button>
+    <br>
+
+    <button class="small-btn" onclick="resetProgress()">Reset Progress</button>
+
+</div>
+
+
+<div class="feature-box">
+
+    <h2>🎲 Daily <span>Workout</span></h2>
+
+    <p style="color:#aaa;margin-bottom:20px;">
+        Don't know what to train today?
+    </p>
+
+    <button class="btn" onclick="generateWorkout()">Generate Workout 🔥</button>
+
+    <div id="dailyWorkout" class="daily-result" style="display:none;"></div>
+
+</div>
+
+</section>
+
+
+<section id="about">
+
+    <div class="about">
+
+        <h2 class="section-title">About <span>Jack Fitness</span></h2>
+
+        <p>
+            Jack Fitness is a simple home workout platform designed
+            to help you train consistently, track your progress and
+            become stronger every day.
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+    © 2026 <span>Jack Fitness</span> 💪 | Train Hard. Stay Strong.
+</footer>
+
+
+<script>
+
+const workouts = {
+
+chest: {
+    title:"💪 Chest Workout",
+    exercises:[
+        ["Push-Ups","3 Sets × 12 Reps","https://www.youtube.com/embed/IODxDxX7oi4"],
+        ["Wide Push-Ups","3 Sets × 10 Reps","https://www.youtube.com/embed/0pkjOk0EiAk"],
+        ["Diamond Push-Ups","2 Sets × 8 Reps","https://www.youtube.com/embed/J0DnG1_S92I"]
+    ]
+},
+
+legs: {
+    title:"🦵 Leg Workout",
+    exercises:[
+        ["Bodyweight Squats","3 Sets × 15 Reps","https://www.youtube.com/embed/aclHkVaku9U"],
+        ["Lunges","3 Sets × 10 Each Leg","https://www.youtube.com/embed/QOVaHwm-Q6U"],
+        ["Glute Bridges","3 Sets × 15 Reps","https://www.youtube.com/embed/wPM8icPu6H8"],
+        ["Calf Raises","3 Sets × 20 Reps","https://www.youtube.com/embed/gwLzBJYoWlI"]
+    ]
+},
+
+abs: {
+    title:"🔥 Abs Workout",
+    exercises:[
+        ["Crunches","3 Sets × 15 Reps","https://www.youtube.com/embed/Xyd_fa5zoEU"],
+        ["Leg Raises","3 Sets × 10 Reps","https://www.youtube.com/embed/JB2oyawG9KI"],
+        ["Mountain Climbers","3 Sets × 20 Reps","https://www.youtube.com/embed/nmwgirgXLYM"],
+        ["Plank","3 Sets × 30 Seconds","https://www.youtube.com/embed/pSHjTRCQxIw"]
+    ]
+},
+
+arms: {
+    title:"💪 Arms Workout",
+    exercises:[
+        ["Diamond Push-Ups","3 Sets × 8 Reps","https://www.youtube.com/embed/J0DnG1_S92I"],
+        ["Close-Grip Push-Ups","3 Sets × 10 Reps","https://www.youtube.com/embed/UZz4Q9p6s6U"],
+        ["Chair Dips","3 Sets × 10 Reps","https://www.youtube.com/embed/6kALZikXxLc"]
+    ]
+},
+
+shoulders: {
+    title:"🏋️ Shoulder Workout",
+    exercises:[
+        ["Pike Push-Ups","3 Sets × 10 Reps","https://www.youtube.com/embed/x7_I5SUAd00"],
+        ["Shoulder Taps","3 Sets × 20 Reps","https://www.youtube.com/embed/2xCGYpT6pYk"],
+        ["Arm Circles","3 Sets × 30 Seconds","https://www.youtube.com/embed/140RT7X3x8M"]
+    ]
+},
+
+fullbody: {
+    title:"🔥 Full Body Workout",
+    exercises:[
+        ["Jumping Jacks","3 Sets × 30 Reps","https://www.youtube.com/embed/c4DAnQ6DtF8"],
+        ["Squats","3 Sets × 15 Reps","https://www.youtube.com/embed/aclHkVaku9U"],
+        ["Push-Ups","3 Sets × 10 Reps","https://www.youtube.com/embed/IODxDxX7oi4"],
+        ["Mountain Climbers","3 Sets × 20 Reps","https://www.youtube.com/embed/nmwgirgXLYM"],
+        ["Plank","3 Sets × 30 Seconds","https://www.youtube.com/embed/pSHjTRCQxIw"]
+    ]
+}
+
+};
+
+
+function showWorkout(type){
+
+    const workout = workouts[type];
+
+    document.getElementById("workoutDetails").style.display="block";
+
+    document.getElementById("workoutTitle").innerText=workout.title;
+
+    let html="";
+
+    workout.exercises.forEach(exercise=>{
+
+        html += `
+        <div class="exercise">
+
+            <h3>${exercise[0]}</h3>
+
+            <p>🔥 ${exercise[1]}</p>
+
+            <iframe
+                src="${exercise[2]}"
+                title="${exercise[0]}"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+        `;
+
+    });
+
+    document.getElementById("exerciseList").innerHTML=html;
+
+    document.getElementById("workoutDetails")
+        .scrollIntoView({behavior:"smooth"});
+
+}
+
+
+function closeWorkout(){
+
+    document.getElementById("workoutDetails").style.display="none";
+
+    document.getElementById("workouts")
+        .scrollIntoView({behavior:"smooth"});
+
+}
+
+
+/* TIMER */
+
+let timeLeft=30;
+let timerInterval=null;
+
+function updateTimer(){
+    document.getElementById("timer").innerText=timeLeft;
+}
+
+function startTimer(){
+
+    if(timerInterval) return;
+
+    timerInterval=setInterval(()=>{
+
+        if(timeLeft>0){
+
+            timeLeft--;
+            updateTimer();
+
+        }else{
+
+            clearInterval(timerInterval);
+            timerInterval=null;
+
+            alert("🔥 Time's up! Great job!");
+
+        }
+
+    },1000);
+
+}
+
+function pauseTimer(){
+
+    clearInterval(timerInterval);
+    timerInterval=null;
+
+}
+
+function resetTimer(){
+
+    clearInterval(timerInterval);
+    timerInterval=null;
+
+    timeLeft=30;
+    updateTimer();
+
+}
+
+
+/* FITNESS LEVEL */
+
+function selectLevel(level){
+
+    let message="";
+
+    if(level==="beginner"){
+        message="🟢 Beginner: Start with 2–3 sets and 8–12 reps.";
+    }
+
+    if(level==="intermediate"){
+        message="🟡 Intermediate: Try 3–4 sets and 10–15 reps.";
+    }
+
+    if(level==="advanced"){
+        message="🔴 Advanced: Try 4–5 sets and 12–20 reps.";
+    }
+
+    document.getElementById("levelResult").innerText=message;
+
+}
+
+
+/* BMI */
+
+function calculateBMI(){
+
+    const height=parseFloat(document.getElementById("height").value);
+    const weight=parseFloat(document.getElementById("weight").value);
+
+    if(!height || !weight || height<=0 || weight<=0){
+
+        document.getElementById("bmiResult").innerText=
+        "⚠️ Please enter valid height and weight.";
+
+        return;
+    }
+
+    const heightM=height/100;
+
+    const bmi=weight/(heightM*heightM);
+
+    let category="";
+
+    if(bmi<18.5){
+        category="Underweight";
+    }else if(bmi<25){
+        category="Normal Weight";
+    }else if(bmi<30){
+        category="Overweight";
+    }else{
+        category="Obese";
+    }
+
+    document.getElementById("bmiResult").innerText=
+    `Your BMI: ${bmi.toFixed(1)} — ${category}`;
+
+}
+
+
+/* PROGRESS */
+
+let workoutCount=
+parseInt(localStorage.getItem("workoutCount")) || 0;
+
+let streakCount=
+parseInt(localStorage.getItem("streakCount")) || 0;
+
+document.getElementById("workoutCount").innerText=workoutCount;
+document.getElementById("streakCount").innerText=streakCount;
+
+
+function completeWorkout(){
+
+    workoutCount++;
+    streakCount++;
+
+    localStorage.setItem("workoutCount",workoutCount);
+    localStorage.setItem("streakCount",streakCount);
+
+    document.getElementById("workoutCount").innerText=workoutCount;
+    document.getElementById("streakCount").innerText=streakCount;
+
+    alert("🔥 Workout completed! Keep going!");
+
+}
+
+
+function resetProgress(){
+
+    workoutCount=0;
+    streakCount=0;
+
+    localStorage.setItem("workoutCount",0);
+    localStorage.setItem("streakCount",0);
+
+    document.getElementById("workoutCount").innerText=0;
+    document.getElementById("streakCount").innerText=0;
+
+}
+
+
+/* DAILY WORKOUT */
+
+const dailyWorkouts=[
+
+{
+    name:"💪 Chest Workout",
+    exercises:[
+        "Push-Ups — 3 × 12",
+        "Wide Push-Ups — 3 × 10",
+        "Diamond Push-Ups — 2 × 8"
+    ]
+},
+
+{
+    name:"🦵 Leg Workout",
+    exercises:[
+        "Bodyweight Squats — 3 × 15",
+        "Lunges — 3 × 10 each leg",
+        "Glute Bridges — 3 × 15",
+        "Calf Raises — 3 × 20"
+    ]
+},
+
+{
+    name:"🔥 Abs Workout",
+    exercises:[
+        "Crunches — 3 × 15",
+        "Leg Raises — 3 × 10",
+        "Mountain Climbers — 3 × 20",
+        "Plank — 3 × 30 sec"
+    ]
+},
+
+{
+    name:"🔥 Full Body Workout",
+    exercises:[
+        "Jumping Jacks — 3 × 30",
+        "Squats — 3 × 15",
+        "Push-Ups — 3 × 10",
+        "Mountain Climbers — 3 × 20",
+        "Plank — 3 × 30 sec"
+    ]
+}
+
+];
+
+
+function generateWorkout(){
+
+    const random=
+    dailyWorkouts[
+        Math.floor(Math.random()*dailyWorkouts.length)
+    ];
+
+    let html=`<h3>${random.name}</h3>`;
+
+    random.exercises.forEach(ex=>{
+        html+=`<p>🔥 ${ex}</p>`;
+    });
+
+    html+=`<p>⏱️ Rest: 30–60 seconds</p>`;
+
+    const result=document.getElementById("dailyWorkout");
+
+    result.innerHTML=html;
+    result.style.display="block";
+
+}
+
+</script>
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+
+    <h2 class="section-title">🏆 Your <span>Achievements</span></h2>
+
+    <div class="achievement-grid">
+
+        <div class="achievement" id="badge1">
+            <div class="badge">🔥</div>
+            <h3>First Workout</h3>
+            <p>Complete your first workout.</p>
+        </div>
+
+        <div class="achievement locked" id="badge5">
+            <div class="badge">💪</div>
+            <h3>Getting Strong</h3>
+            <p>Complete 5 workouts.</p>
+        </div>
+
+        <div class="achievement locked" id="badge10">
+            <div class="badge">👑</div>
+            <h3>Fitness King</h3>
+            <p>Complete 10 workouts.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+#achievements{
+    padding:80px 7%;
+}
+
+.achievement-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.achievement{
+    text-align:center;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    transition:.3s;
+}
+
+.achievement:hover{
+    transform:translateY(-8px);
+    border-color:#ff3030;
+}
+
+.badge{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.achievement h3{
+    margin-bottom:10px;
+}
+
+.achievement p{
+    color:#999;
+}
+
+.locked{
+    opacity:.35;
+    filter:grayscale(1);
+}
+
+@media(max-width:800px){
+    .achievement-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+
+<script>
+
+function updateAchievements(){
+
+    const count =
+    parseInt(localStorage.getItem("workoutCount")) || 0;
+
+    document.getElementById("badge1")
+        .classList.toggle("locked", count < 1);
+
+    document.getElementById("badge5")
+        .classList.toggle("locked", count < 5);
+
+    document.getElementById("badge10")
+        .classList.toggle("locked", count < 10);
+}
+
+updateAchievements();
+
+</script>
+<!-- WORKOUT STREAK CALENDAR -->
+<section id="streakCalendar">
+
+    <h2 class="section-title">🔥 Workout <span>Streak</span></h2>
+
+    <div class="calendar-box">
+
+        <div class="calendar-header">
+            <button onclick="changeMonth(-1)">‹</button>
+            <h2 id="monthYear"></h2>
+            <button onclick="changeMonth(1)">›</button>
+        </div>
+
+        <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+
+        <div class="calendar" id="calendar"></div>
+
+        <p class="calendar-info">
+            🔥 Red days = Workout completed
+        </p>
+
+    </div>
+
+</section>
+
+<style>
+
+#streakCalendar{
+    padding:80px 7%;
+}
+
+.calendar-box{
+    max-width:700px;
+    margin:auto;
+    padding:30px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    backdrop-filter:blur(15px);
+}
+
+.calendar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.calendar-header h2{
+    color:#ff3030;
+}
+
+.calendar-header button{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    background:#222;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.calendar-header button:hover{
+    background:#ff3030;
+}
+
+.weekdays,
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+.weekdays div{
+    text-align:center;
+    color:#888;
+    font-size:13px;
+    padding:8px 0;
+}
+
+.day{
+    aspect-ratio:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:12px;
+    background:#111;
+    color:#aaa;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.day:hover{
+    background:#222;
+    transform:scale(1.05);
+}
+
+.day.today{
+    border:1px solid #ff3030;
+    color:white;
+}
+
+.day.completed{
+    background:#ff3030;
+    color:white;
+    font-weight:bold;
+    box-shadow:0 0 15px rgba(255,48,48,.3);
+}
+
+.empty{
+    aspect-ratio:1;
+}
+
+.calendar-info{
+    text-align:center;
+    color:#888;
+    margin-top:25px;
+}
+
+@media(max-width:600px){
+
+    #streakCalendar{
+        padding:60px 5%;
+    }
+
+    .calendar-box{
+        padding:18px;
+    }
+
+    .weekdays,
+    .calendar{
+        gap:5px;
+    }
+
+    .day{
+        border-radius:8px;
+        font-size:13px;
+    }
+
+}
+
+</style>
+
+<script>
+
+let calendarDate = new Date();
+
+function getWorkoutDays(){
+
+    return JSON.parse(
+        localStorage.getItem("workoutDays") || "[]"
+    );
+
+}
+
+function saveWorkoutDays(days){
+
+    localStorage.setItem(
+        "workoutDays",
+        JSON.stringify(days)
+    );
+
+}
+
+function dateKey(year,month,day){
+
+    return `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+
+}
+
+function renderCalendar(){
+
+    const calendar =
+    document.getElementById("calendar");
+
+    const monthYear =
+    document.getElementById("monthYear");
+
+    calendar.innerHTML="";
+
+    const year = calendarDate.getFullYear();
+    const month = calendarDate.getMonth();
+
+    const monthName =
+    calendarDate.toLocaleString("default",{
+        month:"long"
+    });
+
+    monthYear.innerText =
+    `${monthName} ${year}`;
+
+    const firstDay =
+    new Date(year,month,1).getDay();
+
+    const daysInMonth =
+    new Date(year,month+1,0).getDate();
+
+    const workoutDays =
+    getWorkoutDays();
+
+    for(let i=0;i<firstDay;i++){
+
+        const empty =
+        document.createElement("div");
+
+        empty.className="empty";
+
+        calendar.appendChild(empty);
+
+    }
+
+    const today = new Date();
+
+    for(let day=1;day<=daysInMonth;day++){
+
+        const div =
+        document.createElement("div");
+
+        div.className="day";
+
+        div.innerText=day;
+
+        const key =
+        dateKey(year,month,day);
+
+        if(workoutDays.includes(key)){
+            div.classList.add("completed");
+        }
+
+        if(
+            day===today.getDate() &&
+            month===today.getMonth() &&
+            year===today.getFullYear()
+        ){
+            div.classList.add("today");
+        }
+
+        div.onclick=function(){
+
+            let days=getWorkoutDays();
+
+            if(days.includes(key)){
+
+                days=days.filter(d=>d!==key);
+
+            }else{
+
+                days.push(key);
+
+            }
+
+            saveWorkoutDays(days);
+
+            renderCalendar();
+
+        };
+
+        calendar.appendChild(div);
+
+    }
+
+}
+
+function changeMonth(change){
+
+    calendarDate.setMonth(
+        calendarDate.getMonth()+change
+    );
+
+    renderCalendar();
+
+}
+
+renderCalendar();
+
+</script>
+<!-- WORKOUT MUSIC -->
+<section id="music">
+
+    <h2 class="section-title">🎵 Workout <span>Music</span></h2>
+
+    <div class="music-box">
+
+        <div class="music-icon">🎧</div>
+
+        <h2 id="songTitle">No Music Selected</h2>
+        <p id="musicStatus">Choose a workout track</p>
+
+        <audio id="audioPlayer"></audio>
+
+        <div class="music-buttons">
+            <button class="music-btn" onclick="previousSong()">⏮</button>
+            <button class="music-btn play" onclick="toggleMusic()">▶</button>
+            <button class="music-btn" onclick="nextSong()">⏭</button>
+        </div>
+
+        <div class="song-list">
+
+            <button onclick="selectSong(0)">
+                🔥 Workout Energy
+            </button>
+
+            <button onclick="selectSong(1)">
+                💪 Training Mode
+            </button>
+
+            <button onclick="selectSong(2)">
+                ⚡ Power Session
+            </button>
+
+        </div>
+
+        <p class="music-note">
+            💡 Add your own music files to use them in the player.
+        </p>
+
+    </div>
+
+</section>
+
+<style>
+
+#music{
+    padding:80px 7%;
+}
+
+.music-box{
+    max-width:650px;
+    margin:auto;
+    text-align:center;
+    padding:40px 30px;
+    border-radius:25px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+}
+
+.music-icon{
+    font-size:65px;
+    margin-bottom:15px;
+}
+
+.music-box h2{
+    margin-bottom:8px;
+}
+
+#musicStatus{
+    color:#888;
+    margin-bottom:25px;
+}
+
+.music-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:25px 0;
+}
+
+.music-btn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#222;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.music-btn:hover,
+.music-btn.play{
+    background:#ff3030;
+    transform:scale(1.08);
+}
+
+.song-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:25px;
+}
+
+.song-list button{
+    padding:13px;
+    border:1px solid #333;
+    border-radius:12px;
+    background:#111;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.song-list button:hover{
+    border-color:#ff3030;
+    background:#181818;
+}
+
+.music-note{
+    margin-top:25px;
+    color:#666;
+    font-size:13px;
+}
+
+</style>
+
+<script>
+
+const songs = [
+    {
+        name:"🔥 Workout Energy",
+        file:"music/workout-energy.mp3"
+    },
+    {
+        name:"💪 Training Mode",
+        file:"music/training-mode.mp3"
+    },
+    {
+        name:"⚡ Power Session",
+        file:"music/power-session.mp3"
+    }
+];
+
+let currentSong = 0;
+
+const audioPlayer =
+document.getElementById("audioPlayer");
+
+function selectSong(index){
+
+    currentSong = index;
+
+    audioPlayer.src =
+    songs[currentSong].file;
+
+    document.getElementById("songTitle").innerText =
+    songs[currentSong].name;
+
+    document.getElementById("musicStatus").innerText =
+    "Playing workout music 🎵";
+
+    audioPlayer.play();
+
+}
+
+function toggleMusic(){
+
+    if(!audioPlayer.src){
+
+        selectSong(0);
+        return;
+
+    }
+
+    if(audioPlayer.paused){
+
+        audioPlayer.play();
+
+        document.querySelector(".music-btn.play")
+        .innerText="⏸";
+
+    }else{
+
+        audioPlayer.pause();
+
+        document.querySelector(".music-btn.play")
+        .innerText="▶";
+
+    }
+
+}
+
+function nextSong(){
+
+    currentSong++;
+
+    if(currentSong >= songs.length){
+        currentSong=0;
+    }
+
+    selectSong(currentSong);
+
+}
+
+function previousSong(){
+
+    currentSong--;
+
+    if(currentSong < 0){
+        currentSong=songs.length-1;
+    }
+
+    selectSong(currentSong);
+
+}
+
+audioPlayer.addEventListener("ended",nextSong);
+
+</script>
+<!-- PROFILE -->
+<section id="profile">
+
+    <h2 class="section-title">👤 My <span>Profile</span></h2>
+
+    <div class="profile-box">
+
+        <div class="profile-avatar">💪</div>
+
+        <h2 id="profileName">Jack</h2>
+        <p id="profileGoal">Fitness Journey 🚀</p>
+
+        <div class="profile-inputs">
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+            >
+
+            <input
+                type="text"
+                id="goalInput"
+                placeholder="Your fitness goal"
+            >
+
+        </div>
+
+        <button class="btn" onclick="saveProfile()">
+            💾 Save Profile
+        </button>
+
+    </div>
+
+</section>
+
+<style>
+
+#profile{
+    padding:80px 7%;
+}
+
+.profile-box{
+    max-width:600px;
+    margin:auto;
+    text-align:center;
+    padding:40px 30px;
+    border-radius:25px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+}
+
+.profile-avatar{
+    width:100px;
+    height:100px;
+    margin:0 auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#171717;
+    border:2px solid #ff3030;
+    font-size:50px;
+    box-shadow:0 0 30px rgba(255,48,48,.2);
+}
+
+.profile-box h2{
+    margin-bottom:8px;
+}
+
+#profileGoal{
+    color:#999;
+    margin-bottom:25px;
+}
+
+.profile-inputs{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.profile-inputs input{
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #333;
+    background:#111;
+    color:white;
+    outline:none;
+}
+
+.profile-inputs input:focus{
+    border-color:#ff3030;
+}
+
+</style>
+
+<script>
+
+function saveProfile(){
+
+    const name =
+    document.getElementById("nameInput").value.trim();
+
+    const goal =
+    document.getElementById("goalInput").value.trim();
+
+    if(name){
+        localStorage.setItem("profileName",name);
+        document.getElementById("profileName").innerText=name;
+    }
+
+    if(goal){
+        localStorage.setItem("profileGoal",goal);
+        document.getElementById("profileGoal").innerText=goal;
+    }
+
+    alert("🔥 Profile saved!");
+
+}
+
+function loadProfile(){
+
+    const savedName =
+    localStorage.getItem("profileName");
+
+    const savedGoal =
+    localStorage.getItem("profileGoal");
+
+    if(savedName){
+        document.getElementById("profileName").innerText=savedName;
+        document.getElementById("nameInput").value=savedName;
+    }
+
+    if(savedGoal){
+        document.getElementById("profileGoal").innerText=savedGoal;
+        document.getElementById("goalInput").value=savedGoal;
+    }
+
+}
+
+loadProfile();
+
+</script>
+<!-- PROGRESS CHART -->
+<section id="progressChart">
+
+    <h2 class="section-title">📊 Workout <span>Progress</span></h2>
+
+    <div class="chart-box">
+
+        <div class="chart-title">
+            <h2>🔥 Your Workout History</h2>
+            <p>Keep training and watch your progress grow!</p>
+        </div>
+
+        <div class="bars" id="progressBars"></div>
+
+        <div class="chart-days">
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+            <span>Sun</span>
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+#progressChart{
+    padding:80px 7%;
+}
+
+.chart-box{
+    max-width:850px;
+    margin:auto;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+}
+
+.chart-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.chart-title h2{
+    margin-bottom:8px;
+}
+
+.chart-title p{
+    color:#888;
+}
+
+.bars{
+    height:300px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-around;
+    gap:15px;
+    padding:20px 10px 0;
+    border-bottom:1px solid #333;
+}
+
+.bar-wrapper{
+    height:100%;
+    flex:1;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.bar{
+    width:55%;
+    max-width:55px;
+    min-height:8px;
+    border-radius:10px 10px 0 0;
+    background:#ff3030;
+    box-shadow:0 0 20px rgba(255,48,48,.25);
+    transition:.5s;
+    position:relative;
+}
+
+.bar:hover{
+    transform:scaleX(1.08);
+}
+
+.bar span{
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:13px;
+    color:#aaa;
+}
+
+.chart-days{
+    display:flex;
+    justify-content:space-around;
+    margin-top:15px;
+    color:#777;
+    font-size:13px;
+}
+
+</style>
+
+<script>
+
+function getWorkoutHistory(){
+
+    return JSON.parse(
+        localStorage.getItem("weeklyWorkoutData") ||
+        "[0,0,0,0,0,0,0]"
+    );
+
+}
+
+function saveWorkoutHistory(data){
+
+    localStorage.setItem(
+        "weeklyWorkoutData",
+        JSON.stringify(data)
+    );
+
+}
+
+function renderProgressChart(){
+
+    const data=getWorkoutHistory();
+
+    const bars=document.getElementById("progressBars");
+
+    bars.innerHTML="";
+
+    const maxValue=Math.max(...data,1);
+
+    data.forEach(value=>{
+
+        const wrapper=document.createElement("div");
+
+        wrapper.className="bar-wrapper";
+
+        const bar=document.createElement("div");
+
+        bar.className="bar";
+
+        const height=
+        value===0 ? 8 : (value/maxValue)*85;
+
+        bar.style.height=height+"%";
+
+        bar.innerHTML=
+        `<span>${value}</span>`;
+
+        wrapper.appendChild(bar);
+
+        bars.appendChild(wrapper);
+
+    });
+
+}
+
+function recordWorkoutForChart(){
+
+    const data=getWorkoutHistory();
+
+    const today=new Date();
+
+    const day=today.getDay();
+
+    const index=day===0 ? 6 : day-1;
+
+    data[index]++;
+
+    saveWorkoutHistory(data);
+
+    renderProgressChart();
+
+}
+
+renderProgressChart();
+function completeWorkout(){
+
+    workoutCount++;
+    streakCount++;
+
+    recordWorkoutForChart();
+}
+
+</script>
+<!-- CALORIE CALCULATOR -->
+<section id="calories">
+
+    <h2 class="section-title">🔥 Calories <span>Burned</span></h2>
+
+    <div class="feature-box">
+
+        <h2>🏃 Workout Calorie Calculator</h2>
+
+        <select id="workoutType">
+            <option value="8">Walking</option>
+            <option value="10">Bodyweight Workout</option>
+            <option value="12">HIIT</option>
+            <option value="9">Cycling</option>
+            <option value="11">Running</option>
+        </select>
+
+        <input
+            type="number"
+            id="calorieWeight"
+            placeholder="Weight (kg)"
+        >
+
+        <input
+            type="number"
+            id="workoutMinutes"
+            placeholder="Duration (minutes)"
+        >
+
+        <br><br>
+
+        <button class="btn" onclick="calculateCalories()">
+            🔥 Calculate
+        </button>
+
+        <div class="feature-result" id="calorieResult"></div>
+
+    </div>
+
+</section>
+
+<style>
+
+#calories{
+    padding:80px 7%;
+}
+
+#workoutType{
+    width:100%;
+    max-width:280px;
+    padding:13px;
+    margin:7px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#111;
+    color:white;
+    outline:none;
+}
+
+</style>
+
+<script>
+
+function calculateCalories(){
+
+    const met =
+    parseFloat(document.getElementById("workoutType").value);
+
+    const weight =
+    parseFloat(document.getElementById("calorieWeight").value);
+
+    const minutes =
+    parseFloat(document.getElementById("workoutMinutes").value);
+
+    if(!weight || !minutes || weight<=0 || minutes<=0){
+
+        document.getElementById("calorieResult").innerText =
+        "⚠️ Please enter valid details.";
+
+        return;
+    }
+
+    const calories =
+    (met * 3.5 * weight / 200) * minutes;
+
+    document.getElementById("calorieResult").innerText =
+    `🔥 Approx. ${Math.round(calories)} calories burned!`;
+
+}
+
+</script>
+<!-- MORE ACHIEVEMENTS -->
+<section id="moreAchievements">
+
+    <h2 class="section-title">👑 More <span>Achievements</span></h2>
+
+    <div class="achievement-grid">
+
+        <div class="achievement locked" id="badge25">
+            <div class="badge">🔥</div>
+            <h3>Dedicated</h3>
+            <p>Complete 25 workouts.</p>
+        </div>
+
+        <div class="achievement locked" id="badge50">
+            <div class="badge">💎</div>
+            <h3>Elite</h3>
+            <p>Complete 50 workouts.</p>
+        </div>
+
+        <div class="achievement locked" id="badge100">
+            <div class="badge">👑</div>
+            <h3>Jack Legend</h3>
+            <p>Complete 100 workouts.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+function updateMoreAchievements(){
+
+    const count =
+    parseInt(localStorage.getItem("workoutCount")) || 0;
+
+    document.getElementById("badge25")
+        .classList.toggle("locked", count < 25);
+
+    document.getElementById("badge50")
+        .classList.toggle("locked", count < 50);
+
+    document.getElementById("badge100")
+        .classList.toggle("locked", count < 100);
+
+}
+
+updateMoreAchievements();
+recordWorkoutForChart();
+updateMoreAchievements();
+alert("🔥 Workout completed! Keep going!");
+</script>
+<!-- THEME SWITCHER -->
+<button id="themeToggle" onclick="toggleTheme()">☀️ Light Mode</button>
+
+<style>
+
+#themeToggle{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:9999;
+    padding:12px 18px;
+    border:none;
+    border-radius:25px;
+    background:#ff3030;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+    transition:.3s;
+}
+
+#themeToggle:hover{
+    transform:translateY(-3px);
+}
+
+/* LIGHT MODE */
+
+body.light-mode{
+    background:#f4f4f4;
+    color:#111;
+}
+
+body.light-mode nav{
+    background:rgba(255,255,255,.85);
+    border-bottom:1px solid #ddd;
+}
+
+body.light-mode nav a{
+    color:#111;
+}
+
+body.light-mode .card,
+body.light-mode .feature-box,
+body.light-mode .profile-box,
+body.light-mode .chart-box,
+body.light-mode .calendar-box,
+body.light-mode .music-box,
+body.light-mode .achievement{
+    background:white;
+    border-color:#ddd;
+}
+
+body.light-mode .card p,
+body.light-mode .feature-box p,
+body.light-mode .profile-box p{
+    color:#666;
+}
+
+body.light-mode .exercise,
+body.light-mode .daily-result,
+body.light-mode .song-list button,
+body.light-mode .day{
+    background:#eee;
+    color:#111;
+}
+
+body.light-mode input,
+body.light-mode select{
+    background:white;
+    color:#111;
+    border-color:#ccc;
+}
+
+body.light-mode footer{
+    border-color:#ddd;
+    color:#666;
+}
+
+</style>
+
+<script>
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light-mode");
+
+    const button =
+    document.getElementById("themeToggle");
+
+    if(document.body.classList.contains("light-mode")){
+
+        button.innerText="🌙 Dark Mode";
+
+        localStorage.setItem("theme","light");
+
+    }else{
+
+        button.innerText="☀️ Light Mode";
+
+        localStorage.setItem("theme","dark");
+
+    }
+
+}
+
+function loadTheme(){
+
+    const savedTheme =
+    localStorage.getItem("theme");
+
+    const button =
+    document.getElementById("themeToggle");
+
+    if(savedTheme==="light"){
+
+        document.body.classList.add("light-mode");
+        button.innerText="🌙 Dark Mode";
+
+    }
+
+}
+
+loadTheme();
+
+</script>
+<!-- DAILY GOAL & REMINDER -->
+<section id="dailyGoal">
+
+    <h2 class="section-title">🎯 Daily <span>Goal</span></h2>
+
+    <div class="feature-box">
+
+        <h2>🔥 Today's Workout Goal</h2>
+
+        <p style="color:#999;margin:10px 0 25px;">
+            Set how many workouts you want to complete today.
+        </p>
+
+        <input
+            type="number"
+            id="dailyGoalInput"
+            placeholder="Goal (e.g. 1)"
+            min="1"
+        >
+
+        <br>
+
+        <button class="btn" onclick="saveDailyGoal()">
+            🎯 Set Goal
+        </button>
+
+        <div class="goal-progress">
+            <div class="goal-bar">
+                <div id="goalFill"></div>
+            </div>
+
+            <p id="goalText">No goal set yet.</p>
+        </div>
+
+    </div>
+
+
+    <div class="feature-box">
+
+        <h2>🔔 Workout <span>Reminder</span></h2>
+
+        <p style="color:#999;margin:10px 0 25px;">
+            Choose a time to remind yourself to workout.
+        </p>
+
+        <input
+            type="time"
+            id="reminderTime"
+        >
+
+        <br>
+
+        <button class="btn" onclick="setReminder()">
+            🔔 Set Reminder
+        </button>
+
+        <button class="small-btn" onclick="clearReminder()">
+            ❌ Remove Reminder
+        </button>
+
+        <div class="feature-result" id="reminderResult"></div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+#dailyGoal{
+    padding:80px 7%;
+}
+
+.goal-progress{
+    max-width:500px;
+    margin:25px auto 0;
+}
+
+.goal-bar{
+    height:15px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+#goalFill{
+    height:100%;
+    width:0%;
+    background:#ff3030;
+    border-radius:20px;
+    transition:.5s;
+}
+
+#goalText{
+    margin-top:15px;
+    color:#aaa;
+}
+
+input[type="time"]{
+    width:100%;
+    max-width:280px;
+    padding:13px;
+    margin:7px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#111;
+    color:white;
+}
+
+body.light-mode .goal-bar{
+    background:#ddd;
+}
+
+body.light-mode input[type="time"]{
+    background:white;
+    color:#111;
+    border-color:#ccc;
+}
+
+</style>
+
+
+<script>
+
+let dailyGoal =
+parseInt(localStorage.getItem("dailyGoal")) || 0;
+
+let todayWorkouts =
+parseInt(localStorage.getItem("todayWorkouts")) || 0;
+
+let savedReminder =
+localStorage.getItem("workoutReminder") || "";
+
+
+function saveDailyGoal(){
+
+    const input =
+    parseInt(document.getElementById("dailyGoalInput").value);
+
+    if(!input || input < 1){
+
+        alert("⚠️ Enter a valid goal.");
+
+        return;
+    }
+
+    dailyGoal=input;
+
+    localStorage.setItem("dailyGoal",dailyGoal);
+
+    updateGoal();
+
+    alert("🎯 Daily goal set!");
+
+}
+
+
+function updateGoal(){
+
+    const text =
+    document.getElementById("goalText");
+
+    const fill =
+    document.getElementById("goalFill");
+
+    if(dailyGoal<=0){
+
+        text.innerText="No goal set yet.";
+        fill.style.width="0%";
+
+        return;
+    }
+
+    const percentage =
+    Math.min(
+        (todayWorkouts/dailyGoal)*100,
+        100
+    );
+
+    fill.style.width=percentage+"%";
+
+    if(todayWorkouts >= dailyGoal){
+
+        text.innerText=
+        "🏆 Daily Goal Completed! Great job!";
+
+    }else{
+
+        text.innerText=
+        `🔥 ${todayWorkouts} / ${dailyGoal} workouts completed`;
+
+    }
+
+}
+
+
+function setReminder(){
+
+    const time =
+    document.getElementById("reminderTime").value;
+
+    if(!time){
+
+        alert("⚠️ Please choose a time.");
+
+        return;
+    }
+
+    localStorage.setItem(
+        "workoutReminder",
+        time
+    );
+
+    savedReminder=time;
+
+    document.getElementById("reminderResult").innerText =
+    `🔔 Reminder set for ${time}`;
+
+}
+
+
+function clearReminder(){
+
+    localStorage.removeItem("workoutReminder");
+
+    savedReminder="";
+
+    document.getElementById("reminderTime").value="";
+
+    document.getElementById("reminderResult").innerText =
+    "Reminder removed.";
+
+}
+
+
+function checkReminder(){
+
+    if(!savedReminder) return;
+
+    const now=new Date();
+
+    const currentTime =
+    String(now.getHours()).padStart(2,"0")
+    + ":" +
+    String(now.getMinutes()).padStart(2,"0");
+
+    if(currentTime === savedReminder){
+
+        alert("🔥 Workout Time! Let's train!");
+
+    }
+
+}
+
+
+/* DAILY GOAL UPDATE */
+
+function updateDailyWorkoutCount(){
+
+    if(dailyGoal > 0){
+
+        todayWorkouts++;
+
+        localStorage.setItem(
+            "todayWorkouts",
+            todayWorkouts
+        );
+
+        updateGoal();
+
+    }
+
+}
+
+
+/* LOAD SAVED DATA */
+
+if(savedReminder){
+
+    document.getElementById("reminderTime").value =
+    savedReminder;
+
+    document.getElementById("reminderResult").innerText =
+    `🔔 Reminder set for ${savedReminder}`;
+
+}
+
+if(dailyGoal){
+
+    document.getElementById("dailyGoalInput").value =
+    dailyGoal;
+
+}
+
+updateGoal();
+
+setInterval(checkReminder,60000);
+recordWorkoutForChart();
+updateMoreAchievements();
+updateDailyWorkoutCount();
+
+alert("🔥 Workout completed! Keep going!");
+
+</script>
+</body>
+</html>
